@@ -2,6 +2,7 @@
   "name": "ojet800-webapp",
   "version": "1.0.0",
   "description": "An Oracle JavaScript Extension Toolkit (JET) Sample web app",
+  "auther": "Junko Chino (https://github.com/jchino)",
   "dependencies": {
     "@oracle/oraclejet": "~8.0.0"
   },
