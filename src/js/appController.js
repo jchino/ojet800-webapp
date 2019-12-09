@@ -4,19 +4,21 @@ define([
   'knockout',
   'jquery',
   'ojs/ojcorerouter',
+  'ojs/ojurlparamadapter',
   'ojs/ojmodulerouter-adapter',
   'ojs/ojknockoutrouteradapter',
   'ojs/ojknockout',
   'ojs/ojmodule-element',
 ],
-function (ko, $, CoreRouter, ModuleRouterAdapter, KnockoutRouterAdapter) {
+function (ko, $, CoreRouter, UrlParamAdapter, ModuleRouterAdapter, KnockoutRouterAdapter) {
   const AppController = function () {
     // define CoreRouter
     const routes = [
       { path: '', redirect: 'home' },
       { path: 'home', detail: { label: 'Home' } },
     ];
-    const router = new CoreRouter(routes);
+    const urlAdapter = new UrlParamAdapter();
+    const router = new CoreRouter(routes, { urlAdapter: urlAdapter });
 
     // define ModuleRouterAdapter
     this.module = new ModuleRouterAdapter(
