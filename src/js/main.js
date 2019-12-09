@@ -42,7 +42,6 @@ require([
   'appController',
   'knockout',
   'ojs/ojbootstrap',
-  'ojs/ojknockout',
 ],
 function (app, ko, Bootstrap) {
   Bootstrap.whenDocumentReady().then(

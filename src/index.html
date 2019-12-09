@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Oracle JET Sample Web Application</title>
-    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-    <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0"/>
-    <link rel="icon" type="image/x-icon" href="css/images/favicon.ico">
-    <!-- injector:theme -->
-    <link rel="stylesheet" href="css/libs/oj/v8.0.0/alta/oj-alta-min.css" id="css" />
-    <!-- endinjector -->
-  </head>
-  <body class="oj-web-applayout-body">
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <div id="pageContent" class="oj-web-applayout-page">
-        <header role="banner" class="oj-web-applayout-header">
-          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-            <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
-              <h1 class="oj-web-applayout-header-title">OJET Sample Web App</h1>
-            </div>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Oracle JET Sample Web Application</title>
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="css/images/favicon.ico">
+  <!-- injector:theme -->
+  <link rel="stylesheet" href="css/libs/oj/v8.0.0/alta/oj-alta-min.css" id="css" />
+  <!-- endinjector -->
+</head>
+
+<body class="oj-web-applayout-body">
+  <div id="globalBody" class="oj-offcanvas-page">
+    <div id="pageContent" class="oj-web-applayout-page">
+      <header role="banner" class="oj-web-applayout-header">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+          <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+            <h1 class="oj-web-applayout-header-title">OJET Sample Web App</h1>
           </div>
-        </header>
-        <div class="oj-web-applayout-content-nopad">
         </div>
+      </header>
+      <div class="oj-web-applayout-content-nopad">
+        <div id="breadcrumb" class="oj-web-padding" style="display:none; background-color:#dfdfef;">
+          <a href="#" on-click="[[returnHome]]">Home</a>
+          <span>&gt;</span>
+          <oj-bind-if test="[[ displayBreadcrumb() ]]">
+            <oj-bind-text value="[[selection.state().detail.label]]"></oj-bind-text>
+          </oj-bind-if>
+        </div>
+        <oj-module config="[[module.koObservableConfig]]"></oj-module>
       </div>
     </div>
-    <script type="text/javascript" src="js/libs/require/require.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-  </body>
+  </div>
+  <script type="text/javascript" src="js/libs/require/require.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+
 </html>
