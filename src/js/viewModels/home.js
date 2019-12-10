@@ -1,6 +1,12 @@
 'use strict';
 
-define(function() {
-  const HomeViewModel = function () {};
+define([
+  'ojs/ojlistview',
+],
+function() {
+
+  const HomeViewModel = function () {
+  };
+
   return new HomeViewModel();
 });

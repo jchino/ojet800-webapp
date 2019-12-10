@@ -16,6 +16,7 @@ function (ko, $, CoreRouter, UrlParamAdapter, ModuleRouterAdapter, KnockoutRoute
     const routes = [
       { path: '', redirect: 'home' },
       { path: 'home', detail: { label: 'Home' } },
+      { path: 'fileupload', detail: { label: 'File Upload' } },
     ];
     const urlAdapter = new UrlParamAdapter();
     const router = new CoreRouter(routes, { urlAdapter: urlAdapter });
