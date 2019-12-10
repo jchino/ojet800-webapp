@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+#breadcrumb {
+  background-color: #027bc7;
+}
+#breadcrumb h2, #breadcrumb .app-breadcrumb-icon {
+  color: #fff;
+}
