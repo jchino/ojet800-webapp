@@ -4,12 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <title>Oracle JET Sample Web Application</title>
-  <meta http-equiv="x-ua-compatible" content="IE=edge" />
-  <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="css/images/favicon.ico">
   <!-- injector:theme -->
-  <link rel="stylesheet" href="css/libs/oj/v8.0.0/alta/oj-alta-min.css" id="css" />
+  <link rel="stylesheet" href="css/libs/oj/v8.0.0/alta/oj-alta-min.css">
   <!-- endinjector -->
+  <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body class="oj-web-applayout-body">
@@ -23,12 +24,19 @@
         </div>
       </header>
       <div class="oj-web-applayout-content-nopad">
-        <div id="breadcrumb" class="oj-web-padding" style="display:none; background-color:#dfdfef;">
-          <a href="#" on-click="[[returnHome]]">Home</a>
-          <span>&gt;</span>
-          <oj-bind-if test="[[ displayBreadcrumb() ]]">
-            <oj-bind-text value="[[selection.state().detail.label]]"></oj-bind-text>
-          </oj-bind-if>
+        <div id="breadcrumb" style="display:none">
+          <div class="oj-web-applayout-max-width oj-web-padding oj-flex-bar oj-sm-align-items-center">
+            <div class="oj-flex-bar-start">
+              <a href="#" on-click="[[returnHome]]">
+                <span role="img" class="oj-fwk-icon oj-fwk-icon-caret-w app-breadcrumb-icon" title="Back to Home"></span>
+              </a>
+            </div>
+            <div class="oj-flex-bar-middle oj-sm-margin-1x-start">
+              <oj-bind-if test="[[displayBreadcrumb]]">
+                <h2><oj-bind-text value="[[selection.state().detail.label]]"></oj-bind-text></h2>
+              </oj-bind-if>
+            </div>
+          </div>
         </div>
         <oj-module config="[[module.koObservableConfig]]"></oj-module>
       </div>

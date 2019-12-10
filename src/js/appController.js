@@ -31,13 +31,14 @@ function (ko, $, CoreRouter, UrlParamAdapter, ModuleRouterAdapter, KnockoutRoute
 
     // controll breadcrumb hide/show
     this.displayBreadcrumb = ko.pureComputed(function () {
+      const breadcrumb = $('#breadcrumb');
       if (!this.selection.state()) {
-        $('#breadcrumb').hide();
+        breadcrumb.hide();
         return false;
       }
       else {
         const toggle = this.selection.path() !== 'home';
-        $('#breadcrumb').toggle(toggle);
+        breadcrumb.toggle(toggle);
         return toggle;
       }
     }.bind(this));
