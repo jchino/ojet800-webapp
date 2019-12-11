@@ -49,6 +49,10 @@ function (ko, $, CoreRouter, UrlParamAdapter, ModuleRouterAdapter, KnockoutRoute
       router.go({ path: 'home' });
     };
 
+    this.go = function (path) {
+      return router.go({ path: path });
+    };
+
     router.sync();
   };
 

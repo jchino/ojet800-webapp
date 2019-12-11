@@ -1,26 +1,28 @@
 <div class="oj-web-applayout-max-width oj-web-padding oj-md-margin-2x-vertical">
-  <oj-list-view>
-    <ul>
-      <li>
-        <div class="oj-flex-bar oj-sm-align-items-center">
-          <div class="oj-flex-bar-start">
-            <span class="oj-icon-circle oj-icon-xs">
-              <span class="oj-icon-circle-inner" style="background-color:#e55a37;">
-                <img role="img" src="css/images/fileupload.svg" width="32" height="32">
-              </span>
+  <oj-list-view id="samplesListView" data="[[samplesADP]]" selection-mode="none">
+    <template slot="itemTemplate" data-oj-as="item">
+      <div :id="[[item.data.path]]" class="oj-flex-bar oj-sm-align-items-center" on-click="[[clickListItem]]">
+        <div class="oj-flex-bar-start">
+          <span class="oj-icon-circle oj-icon-xs">
+            <span class="oj-icon-circle-inner" style="background-color:#F08236;">
+              <img :src="[['css/images/' + item.data.detail.icon]]" width="32" height="32">
             </span>
-          </div>
-          <div class="oj-flex-bar-middle oj-sm-margin-2x-horizontal">
-            <div class="oj-flex oj-lg-flex-direction-column">
-              <div class="oj-flex-item">File Upload</div>
-              <div class="oj-flex-item oj-text-secondary-color oj-text-sm">oj-file-picker を使ったファイルのアップロードのサンプル</div>
+          </span>
+        </div>
+        <div class="oj-flex-bar-middle oj-sm-margin-2x-horizontal">
+          <div class="oj-flex oj-lg-flex-direction-column">
+            <div class="oj-flex-item">
+              <oj-bind-text value="[[item.data.detail.label]]"></oj-bind-text>
+            </div>
+            <div class="oj-flex-item oj-text-secondary-color oj-text-sm">
+              <oj-bind-text value="[[item.data.detail.description]]"></oj-bind-text>
             </div>
           </div>
-          <div class="oj-flex-bar-end">
-            <span role="presentation" class="oj-fwk-icon oj-listview-drill-icon"></span>
-          </div>
         </div>
-      </li>
-    </ul>
+        <div class="oj-flex-bar-end">
+          <span role="presentation" class="oj-fwk-icon oj-listview-drill-icon"></span>
+        </div>
+      </div>
+    </template>
   </oj-list-view>
 </div>
