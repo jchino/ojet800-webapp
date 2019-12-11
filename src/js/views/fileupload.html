@@ -1,3 +1,23 @@
-<div class="oj-web-applayout-max-width oj-web-padding oj-md-margin-2x-vertical">
-  <div class="oj-panel"></div>
+<div class="oj-web-applayout-max-width oj-web-padding">
+  <div class="oj-panel oj-sm-margin-2x-bottom">
+    <oj-form-layout label-edge="start" label-width="10rem">
+      <oj-radioset label-hint="Accept" class="oj-choice-direction-row" value="{{acceptTxt}}">
+        <oj-option id="accept-all" value="all">All</oj-option>
+        <oj-option id="accept-image" value="image">Image Only</oj-option>
+      </oj-radioset>
+      <oj-radioset label-hint="Select On" class="oj-choice-direction-row" value="{{selectOn}}">
+        <oj-option id="select-on-auto" value="auto">Auto</oj-option>
+        <oj-option id="select-on-click" value="click">Click</oj-option>
+        <oj-option id="select-on-drop" value="drop">Drop</oj-option>
+        <oj-option id="select-on-clickanddrop" value="clickAndDrop">Click and Drop</oj-option>
+      </oj-radioset>
+      <oj-radioset label-hint="Selection Mode" class="oj-choice-direction-row" value="{{selectionMode}}">
+        <oj-option id="selection-mode-single" value="single">Single</oj-option>
+        <oj-option id="selection-mode-multiple" value="multiple">Multiple</oj-option>
+      </oj-radioset>
+    </oj-form-layout>
+    <hr>
+    <oj-file-picker accept="[[accept]]" select-on="[[selectOn]]" selection-mode="[[selectionMode]]">
+    </oj-file-picker>
+  </div>
 </div>

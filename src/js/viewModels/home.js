@@ -18,5 +18,5 @@ function(app, samples, ko, ArrayDataProvider) {
     };
   };
 
-  return new HomeViewModel;
+  return new HomeViewModel();
 });
