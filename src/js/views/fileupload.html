@@ -17,7 +17,18 @@
       </oj-radioset>
     </oj-form-layout>
     <hr>
-    <oj-file-picker accept="[[accept]]" select-on="[[selectOn]]" selection-mode="[[selectionMode]]">
+    <oj-file-picker accept="[[accept]]" select-on="[[selectOn]]" selection-mode="[[selectionMode]]"
+                    on-oj-before-select="[[beforeSelectAction]]"
+                    on-oj-invalid-select="[[invalidSelectAction]]"
+                    on-oj-select="[[selectAction]]">
     </oj-file-picker>
+    <div class="oj-panel oj-panel-alt2 oj-sm-margin-2x-vertical">
+      <div>選択されたファイル</div>
+      <div>
+        <oj-bind-text value="[[selectedNames]]"></oj-bind-text>
+        <oj-button disabled="[[disabledUploadBtn]]" on-oj-action="[[uploadFiles]]">アップロード</oj-button>
+        <oj-bind-text value="[[uploadStatus]]"></oj-bind-text>
+      </div>
+    </div>
   </div>
 </div>
