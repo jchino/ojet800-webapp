@@ -48,7 +48,7 @@ function (ko, Logger) {
       // event.detail.accept(new Promise(function (resolve, reject) {
       //   // ユーザーが選択したファイルのアップロード前に実行したい非同期処理があればここに書く
       //   // 前処理が成功したら resolve()
-      //   // 前処理が失敗したら reject(errormessage)
+      //   // 前処理が失敗したら reject()
       // }));
     };
 
@@ -79,28 +79,35 @@ function (ko, Logger) {
       for (let i = 0; i < this.selectedFiles().length; i++) {
         promises.push(uploadFile(this.selectedFiles()[i]));
       }
-      Promise.all(promises).then(
-        function () {
-          this.uploadStatus('アップロード完了');
-          this.selectedFiles.removeAll();
-        }.bind(this),
-        function (error) {
-          Logger.error(error);
-        }
-      );
+      // Promise.all(promises).then(
+      //   function () {
+      //     this.uploadStatus('アップロード完了');
+      //     this.selectedFiles.removeAll();
+      //   }.bind(this),
+      //   function (error) {
+      //     Logger.error(error);
+      //   }
+      // );
     }.bind(this);
 
+    // eslint-disable-next-line no-unused-vars
     const uploadFile = function (file) {
       // eslint-disable-next-line no-unused-vars
-      return new Promise(function (resolve, reject) {
-        Logger.info(file.name);
-        setTimeout(function () {
-          resolve();
-        }, 1000);
-      });
+      // return new Promise(function (resolve, reject) {
+      //   const xhr = new XMLHttpRequest();
+      //   xhr.open('POST', 'http://hostname:port/path/resource');
+      //   xhr.setRequestHeader('Authorization', 'Basic xxxxxxxx');
+      //   xhr.send(file);
+      //   xhr.onload = function () {
+      //     resolve();
+      //   };
+      //   xhr.onerror = function () {
+      //     reject();
+      //   };
+      // });
     };
   };
 
-  return new FileUploadViewModel;
+  return FileUploadViewModel;
 
 });
