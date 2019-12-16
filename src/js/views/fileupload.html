@@ -42,5 +42,13 @@
       <oj-button id="upladBtn" disabled="[[disabledUploadBtn]]" on-oj-action="[[uploadFiles]]">アップロード</oj-button>
       <oj-bind-text value="[[uploadStatus]]"></oj-bind-text>
     </div>
+    <oj-form-layout label-edge="start" label-width="16rem">
+      <oj-input-text value="{{uploadUrl}}" label-hint="アップロード先 URL" style="max-width: 90%;"></oj-input-text>
+      <oj-text-area value="{{uploadHeader}}" label-hint="リクエスト・ヘッダー" rows="4" style="max-width: 90%;"></oj-text-area>
+      <oj-radioset id="upload-type" label-hint="リクエスト・タイプ" class="oj-choice-direction-row" value="{{uploadBodyType}}">
+        <oj-option id="upload-type-binary" value="binary">binary</oj-option>
+        <oj-option id="upload-type-form" value="form">form-data</oj-option>
+      </oj-radioset>
+    </oj-form-layout>
   </div>
 </div>
