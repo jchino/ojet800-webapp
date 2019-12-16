@@ -1,34 +1,46 @@
 <div class="oj-web-applayout-max-width oj-web-padding">
   <div class="oj-panel oj-sm-margin-2x-bottom">
-    <oj-form-layout label-edge="start" label-width="10rem">
-      <oj-radioset label-hint="Accept" class="oj-choice-direction-row" value="{{acceptTxt}}">
-        <oj-option id="accept-all" value="all">All</oj-option>
-        <oj-option id="accept-image" value="image">Image Only</oj-option>
-      </oj-radioset>
-      <oj-radioset label-hint="Select On" class="oj-choice-direction-row" value="{{selectOn}}">
-        <oj-option id="select-on-auto" value="auto">Auto</oj-option>
-        <oj-option id="select-on-click" value="click">Click</oj-option>
-        <oj-option id="select-on-drop" value="drop">Drop</oj-option>
-        <oj-option id="select-on-clickanddrop" value="clickAndDrop">Click and Drop</oj-option>
-      </oj-radioset>
-      <oj-radioset label-hint="Selection Mode" class="oj-choice-direction-row" value="{{selectionMode}}">
-        <oj-option id="selection-mode-single" value="single">Single</oj-option>
-        <oj-option id="selection-mode-multiple" value="multiple">Multiple</oj-option>
-      </oj-radioset>
-    </oj-form-layout>
-    <hr>
-    <oj-file-picker accept="[[accept]]" select-on="[[selectOn]]" selection-mode="[[selectionMode]]"
-                    on-oj-before-select="[[beforeSelectAction]]"
-                    on-oj-invalid-select="[[invalidSelectAction]]"
-                    on-oj-select="[[selectAction]]">
-    </oj-file-picker>
-    <div class="oj-panel oj-panel-alt2 oj-sm-margin-2x-vertical">
-      <div>選択されたファイル</div>
-      <div>
-        <oj-bind-text value="[[selectedNames]]"></oj-bind-text>
-        <oj-button disabled="[[disabledUploadBtn]]" on-oj-action="[[uploadFiles]]">アップロード</oj-button>
-        <oj-bind-text value="[[uploadStatus]]"></oj-bind-text>
+    <h3 class="oj-header-border">oj-file-picker コンポーネントの設定</h3>
+    <div class="oj-flex">
+      <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+        <oj-file-picker accept="[[accept]]" select-on="[[selectOn]]" selection-mode="[[selectionMode]]"
+          on-oj-before-select="[[beforeSelectAction]]" on-oj-invalid-select="[[invalidSelectAction]]"
+          on-oj-select="[[selectAction]]">
+        </oj-file-picker>
       </div>
+      <oj-form-layout class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-8" label-edge="start" label-width="10rem">
+        <oj-radioset id="file-picker-accept" label-hint="Accept" class="oj-choice-direction-row" value="{{acceptTxt}}">
+          <oj-option id="accept-all" value="all">All</oj-option>
+          <oj-option id="accept-image" value="image">Image Only</oj-option>
+        </oj-radioset>
+        <oj-radioset id="file-picker-select-on" label-hint="Select On" class="oj-choice-direction-row"
+          value="{{selectOn}}">
+          <oj-option id="select-on-auto" value="auto">Auto</oj-option>
+          <oj-option id="select-on-click" value="click">Click</oj-option>
+          <oj-option id="select-on-drop" value="drop">Drop</oj-option>
+          <oj-option id="select-on-clickanddrop" value="clickAndDrop">Click and Drop</oj-option>
+        </oj-radioset>
+        <oj-radioset id="file-picker-selection-mode" label-hint="Selection Mode" class="oj-choice-direction-row"
+          value="{{selectionMode}}">
+          <oj-option id="selection-mode-single" value="single">Single</oj-option>
+          <oj-option id="selection-mode-multiple" value="multiple">Multiple</oj-option>
+        </oj-radioset>
+      </oj-form-layout>
+      <div class="oj-flex-item oj-sm-12 oj-panel oj-panel-alt2">
+        <h4>選択されたファイル:</h4>
+        <div>
+          <oj-bind-if test="[[selectedNames().length === 0]]"><span class="oj-text-secondary-color">未選択</span></oj-bind-if>
+          <oj-bind-text value="[[selectedNames]]"></oj-bind-text>
+        </div>
+      </div>
+    </div>
+    <oj-messages messages="[[msgsProvider]]" position="{}" display="notification"></oj-messages>
+  </div>
+  <div class="oj-panel">
+    <h3 class="oj-header-border">アップロード</h3>
+    <div>
+      <oj-button id="upladBtn" disabled="[[disabledUploadBtn]]" on-oj-action="[[uploadFiles]]">アップロード</oj-button>
+      <oj-bind-text value="[[uploadStatus]]"></oj-bind-text>
     </div>
   </div>
 </div>
