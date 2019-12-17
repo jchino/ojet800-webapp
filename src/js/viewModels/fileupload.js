@@ -70,6 +70,7 @@ function (ko, ArrayDataProvider, Logger) {
     this.beforeSelectAction = function (event) {
       // Safari は ojInvalidSelect イベントで設定したメッセージがクリアできないことがあるので念のためここでクリア
       this.msgs.removeAll();
+      this.uploadStatus('');
       // event.detail.accept(new Promise(function (resolve, reject) {
       //   // ユーザーが選択したファイルのアップロード前に実行したい非同期処理があればここに書く
       //   // 前処理が成功したら resolve()
@@ -90,12 +91,12 @@ function (ko, ArrayDataProvider, Logger) {
     this.uploadFiles = function () {
       this.uploadStatus('アップロード処理中');
       this.disabledUploadBtn(true);
-      const promises = [];
       if (this.uploadBodyType() !== 'binary') {
         alert('未実装です');
         this.uploadStatus('');
       }
       else {
+        const promises = [];
         for (let i = 0; i < this.selectedFiles().length; i++) {
           promises.push(uploadAsBinary(this.selectedFiles()[i]));
         }
@@ -109,11 +110,10 @@ function (ko, ArrayDataProvider, Logger) {
           }
         );
       }
-      
     }.bind(this);
 
     const uploadAsBinary = function (file) {
-      return new Promise(function (resolve) {
+      return new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', this.uploadUrl());
         const headers = JSON.parse(this.uploadHeader());
@@ -122,13 +122,35 @@ function (ko, ArrayDataProvider, Logger) {
           xhr.setRequestHeader(names[i], headers[names[i]]);
         }
         xhr.send(file);
+
+        // レスポンスが返ってきた場合
         xhr.onload = function () {
-          this.msgs.push({ severity: 'info', summary: file.name + 'がアップロードされました' });
+          let msg;
+          if (xhr.status >= 200 && xhr.status < 300) {
+            msg = {
+              severity: 'info',
+              summary: file['name'] + 'がアップロードされました',
+            };
+          }
+          else {
+            Logger.error(xhr.response);
+            msg = {
+              severity: 'error',
+              summary: file['name'] + 'がアップロードできませんでした: ' + xhr.status + ' - ' + xhr.statusText,
+            };
+          }
+          this.msgs.push(msg);
           resolve();
         }.bind(this);
-        xhr.onerror = function () {
-          this.msgs.push({ severity: 'error', summary: file.name + 'がアップロードできませんでした' });
-          resolve();
+
+        // 何かしらのエラーが起きた場合
+        xhr.onerror = function (event) {
+          Logger.error(event);
+          this.msgs.push({
+            severity: 'error',
+            summary: file['name'] + 'がアップロードできませんでした',
+          });
+          reject();
         }.bind(this);
       }.bind(this));
     }.bind(this);
