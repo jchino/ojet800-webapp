@@ -100,12 +100,15 @@ function (ko, ArrayDataProvider, Logger) {
           promises.push(uploadAsBinary(this.selectedFiles()[i]));
         }
         Promise.all(promises).then(
+          // すべてのファイルのアップロードを実行してサーバーからなにがしかのレスポンスを取得
           function () {
             this.uploadStatus('アップロード完了');
             this.selectedFiles.removeAll();
           }.bind(this),
-          function (error) {
-            Logger.error(error);
+          // アップロード自体出来なかった
+          function () {
+            this.uploadStatus('アップロードできませんでした');
+            this.disabledUploadBtn(false);
           }
         );
       }
@@ -114,7 +117,18 @@ function (ko, ArrayDataProvider, Logger) {
     const uploadAsBinary = function (file) {
       return new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', this.uploadUrl());
+        try {
+          xhr.open('POST', this.uploadUrl());
+        }
+        catch (error) {
+          Logger.error(error);
+          this.msgs.push({
+            severity: 'error',
+            summary: '指定された URL ' + this.uploadUrl() + 'に接続できません。'
+          });
+          reject();
+          return;
+        }
         if (this.uploadHeader()) {
           try {
             const headers = JSON.parse(this.uploadHeader());
@@ -126,7 +140,6 @@ function (ko, ArrayDataProvider, Logger) {
           catch (error) {
             // 入力されたリクエスト・ヘッダーの JSON がパースできなかった
             Logger.error(error);
-            Logger.error(this.uploadHeader());
             this.msgs.push({
               severity: 'error',
               summary: 'リクエスト・ヘッダーに指定する値は JSON 形式で指定する必要があります'
