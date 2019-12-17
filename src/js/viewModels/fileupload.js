@@ -11,7 +11,6 @@ define([
   'ojs/ojbutton',
   'ojs/ojinputtext',
 ],
-// eslint-disable-next-line no-unused-vars
 function (ko, ArrayDataProvider, Logger) {
 
   const FileUploadViewModel = function () {
@@ -116,10 +115,25 @@ function (ko, ArrayDataProvider, Logger) {
       return new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', this.uploadUrl());
-        const headers = JSON.parse(this.uploadHeader());
-        const names = Object.keys(headers);
-        for (let i = 0; i < names.length; i++) {
-          xhr.setRequestHeader(names[i], headers[names[i]]);
+        if (this.uploadHeader()) {
+          try {
+            const headers = JSON.parse(this.uploadHeader());
+            const names = Object.keys(headers);
+            for (let i = 0; i < names.length; i++) {
+              xhr.setRequestHeader(names[i], headers[names[i]]);
+            }
+          }
+          catch (error) {
+            // 入力されたリクエスト・ヘッダーの JSON がパースできなかった
+            Logger.error(error);
+            Logger.error(this.uploadHeader());
+            this.msgs.push({
+              severity: 'error',
+              summary: 'リクエスト・ヘッダーに指定する値は JSON 形式で指定する必要があります'
+            });
+            reject();
+            return;
+          }
         }
         xhr.send(file);
 
